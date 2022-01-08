@@ -23,6 +23,7 @@ body {
 }
 
 .outerCircle {
+    box-sizing: border-box;
     position: absolute;
     width: 5rem;
     height: 5rem;
@@ -34,6 +35,10 @@ body {
     mix-blend-mode: difference;
 
     pointer-events: none;
+
+    transition-property: background-color, transform;
+    transition-duration: .3s;
+    transition-timing-function: ease;
 }
 
 .innerCircle {
@@ -44,11 +49,14 @@ body {
     background: #fff;
     border-radius: 100%;
     transform: translate(-50%, -50%);
-
-    mix-blend-mode: difference;
-
-    pointer-events: none;
     
+    mix-blend-mode: difference;
+    
+    pointer-events: none;
+
+    transition-property: background-color, border, transform;
+    transition-duration: .125s;
+    transition-timing-function: ease;
 }
 
 .c-button {
@@ -72,4 +80,5 @@ body {
     font-size: 5rem;
     filter: invert(1);
     padding: 5rem;
+    user-select: none;
 }

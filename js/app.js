@@ -17,7 +17,25 @@ const hexToRgb = (hex) => {
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16)
     } : null;
-  }
+}
+
+const handleClickDown = (e) => {
+    const circle = document.querySelector('.outerCircle');
+    const dot = document.querySelector('.innerCircle');
+
+    dot.style.transform = `scale(2) translate(-25%, -25%)`
+    circle.style.backgroundColor = 'transparent'
+    circle.style.border = '2px solid #fff'
+}
+
+const handleClickUp = (e) => {
+    const circle = document.querySelector('.outerCircle');
+    const dot = document.querySelector('.innerCircle');
+
+    dot.style.transform = 'scale(1) translate(-50%, -50%)'
+    circle.style.backgroundColor = '#fff'
+    circle.style.border = 'none'
+}
 
 const init = () => {
     const colors = {
@@ -35,7 +53,6 @@ const init = () => {
 
     changeColorButton.addEventListener('click', (e) => {
         const randomColor = getRandomColor(colors);
-        console.log(randomColor.rgb)
 
         mainSection.style.backgroundColor = randomColor.color;
         changeColorButton.style.backgroundColor = randomColor.color
@@ -43,7 +60,6 @@ const init = () => {
         title.style.color = randomColor.color
         title.textContent = randomColor.name;
     });
-    
     
     const followMouse = () => {
         //1. find distance X , distance Y
@@ -81,6 +97,8 @@ const init = () => {
     let mouse = {x:0, y:0};
 
     document.addEventListener('mousemove', getMouse)
+    document.addEventListener('mousedown', handleClickDown)
+    document.addEventListener('mouseup', handleClickUp)
 }
 
 window.addEventListener('DOMContentLoaded', () => {
