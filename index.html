@@ -12,17 +12,30 @@
 </head>
 <body>
     <section class="c-main">
-        <div>
-            <h1 class="c-title"></h1>
-            <h2 class="c-hex"></h2>
+        <div class="c-hex">
+            <p class="c-hex--text"></p>
+            <svg class="c-hex--icon" viewBox="0 0 290 330">
+                <g transform="translate(-20)">
+                    <path d="M35,270H80v45a15,15,0,0,0,15,15H295a15,15,0,0,0,15-15V75a15,15,0,0,0-15-15H250V15A15,15,0,0,0,235,0H35A15,15,0,0,0,20,15V255A15,15,0,0,0,35,270Zm245,30H110V90H280ZM50,30H220V60H95A15,15,0,0,0,80,75V240H50Z"/>
+                    <path d="M155,120a15,15,0,0,0,0,30h80a15,15,0,0,0,0-30Z"/>
+                    <path d="M235,180H155a15,15,0,0,0,0,30h80a15,15,0,0,0,0-30Z"/>
+                    <path d="M235,240H155a15,15,0,0,0,0,30h80a15,15,0,0,0,0-30Z"/>
+                </g>
+            </svg>
+            <div class="c-hex--copied">
+                <p>
+                    copied
+                </p>
+                <svg class="c-hex--copied__icon" viewBox="0 0 418.549 320.193">
+                    <path d="M-9309-3526.472l124.872,124.872,240.644-240.644" transform="translate(9335.517 3668.76)" stroke-linecap="round" stroke-linejoin="round" stroke-width="75"/>
+                </svg>
+            </div>
         </div>
+        <h1 class="c-title"></h1>
 
         <div class="c-button">
             <p class="c-button--text">Change color</p>
         </div>
-        
-        <span class="outerCircle"></span>
-        <span class="innerCircle"></span>
     </section>
 </body>
 </html>
