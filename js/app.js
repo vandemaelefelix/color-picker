@@ -100,8 +100,8 @@ const init = () => {
         var distY = mouse.y - circlePos.y;
         
         //Progressive reduction of distance 
-        circlePos.x += distX/5;
-        circlePos.y += distY/5;
+        circlePos.x += distX/6;
+        circlePos.y += distY/6;
 
         dotPos.x += mouse.x - dotPos.x
         dotPos.y += mouse.y - dotPos.y
