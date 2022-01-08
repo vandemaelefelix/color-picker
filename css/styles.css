@@ -1,0 +1,75 @@
+html {
+    height: 100%; /* requires for stable body height */
+    cursor: none;
+}
+
+body {
+    min-height: 100%; /* requires for 'mix-blend-mode' */
+    background-color: #fff; /* requires for 'mix-blend-mode' */
+    overflow: hidden;
+}
+
+.c-main {
+    position: relative;
+    width: 100vw;
+    height: 100vh; 
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: background .3s ease;
+}
+
+.outerCircle {
+    position: absolute;
+    width: 5rem;
+    height: 5rem;
+
+    background: #fff;
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+
+    mix-blend-mode: difference;
+
+    pointer-events: none;
+}
+
+.innerCircle {
+    position: absolute;
+    height: 1rem;
+    width: 1rem;
+    
+    background: #fff;
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+
+    mix-blend-mode: difference;
+
+    pointer-events: none;
+    
+}
+
+.c-button {
+    cursor: none;
+    filter: invert(1);    
+    transition: background .3s ease;
+    
+
+    padding: 1rem;
+    background-color: red;
+}
+
+.c-button--text {
+    filter: invert(1);
+    user-select: none;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.c-title {
+    font-size: 5rem;
+    filter: invert(1);
+    padding: 5rem;
+}
