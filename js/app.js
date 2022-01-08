@@ -93,7 +93,7 @@ const init = () => {
         hex.style.color = randomColor.color
         hex.textContent = `${randomColor.color}`
     }
-    
+
     const followMouse = () => {
         //1. find distance X , distance Y
         var distX = mouse.x - circlePos.x;
@@ -129,5 +129,19 @@ const init = () => {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    const createMouse = () => {
+        const section = document.querySelector('.c-main');
+        const innerCircle = document.createElement('span');
+        const outerCircle = document.createElement('span');
+
+        innerCircle.setAttribute('class', 'innerCircle')
+        outerCircle.setAttribute('class', 'outerCircle')
+
+        section.appendChild(innerCircle);
+        section.appendChild(outerCircle);
+    }
+    
+    createMouse();
+    
     init();
 });
