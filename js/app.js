@@ -114,16 +114,31 @@ const init = () => {
     }
     
     const getMouse = (e) => {
-        mouse.x = e.pageX;
-        mouse.y = e.pageY;
+        console.log(e)
+        if (e.type == 'touchmove' || e.type == 'touchdown') {
+            handleClickUp();
+            e.preventDefault();
+            const touch = e.changedTouches[0]
+            mouse.x = touch.pageX;
+            mouse.y = touch.pageY;
+        } else {
+            mouse.x = e.pageX;
+            mouse.y = e.pageY;
+        }
     }
 
     setInterval(followMouse, 20);
 
     changeColor();
+    
+    document.addEventListener('touchmove', getMouse);
+    document.addEventListener('touchend', handleClickUp);
     document.addEventListener('mousemove', getMouse);
-    document.addEventListener('mousedown', handleClickDown);
-    document.addEventListener('mouseup', handleClickUp);
+
+    // document.addEventListener('pointermove', getMouse, true);
+
+    document.addEventListener('pointerdown', handleClickDown);
+    document.addEventListener('pointerup', handleClickUp);
     changeColorButton.addEventListener('click', changeColor);
     hexContainer.addEventListener('click', handleCopyClick);
 }
@@ -142,6 +157,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     
     createMouse();
-    
+
     init();
 });
