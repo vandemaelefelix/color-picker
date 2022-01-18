@@ -29,8 +29,8 @@ body {
 .outerCircle {
     box-sizing: border-box;
     position: absolute;
-    width: 5rem;
-    height: 5rem;
+    width: 6rem;
+    height: 6rem;
 
     background: #fff;
     border-radius: 100%;

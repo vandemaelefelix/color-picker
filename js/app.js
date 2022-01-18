@@ -17,13 +17,6 @@ const init = () => {
     const hexCopied = document.querySelector('.c-hex--copied');
     const hexCopiedIcon = document.querySelector('.c-hex--copied__icon');
 
-    const circle = document.querySelector('.outerCircle');
-    const dot = document.querySelector('.innerCircle');
-    
-    let circlePos = {x:0, y:0};
-    let dotPos = {x:0, y:0};
-    let mouse = {x:0, y:0};
-
     let previousColor = '';
 
     const getRandomColor = (obj) => {
@@ -44,18 +37,6 @@ const init = () => {
           g: parseInt(result[2], 16),
           b: parseInt(result[3], 16)
         } : null;
-    }
-    
-    const handleClickDown = (e) => {    
-        dot.style.transform = `scale(2) translate(-25%, -25%)`
-        circle.style.backgroundColor = 'transparent'
-        circle.style.border = '2px solid #fff'
-    }
-    
-    const handleClickUp = (e) => {    
-        dot.style.transform = 'scale(1) translate(-50%, -50%)'
-        circle.style.backgroundColor = '#fff'
-        circle.style.border = 'none'
     }
 
     const handleCopyClick = () => {
@@ -94,69 +75,14 @@ const init = () => {
         hex.textContent = `${randomColor.color}`
     }
 
-    const followMouse = () => {
-        //1. find distance X , distance Y
-        var distX = mouse.x - circlePos.x;
-        var distY = mouse.y - circlePos.y;
-        
-        //Progressive reduction of distance 
-        circlePos.x += distX/6;
-        circlePos.y += distY/6;
-
-        dotPos.x += mouse.x - dotPos.x
-        dotPos.y += mouse.y - dotPos.y
-        
-        circle.style.left = circlePos.x + "px";
-        circle.style.top = circlePos.y + "px";    
-
-        dot.style.left = dotPos.x + "px";
-        dot.style.top = dotPos.y + "px";    
-    }
-    
-    const getMouse = (e) => {
-        console.log(e)
-        if (e.type == 'touchmove' || e.type == 'touchdown') {
-            handleClickUp();
-            e.preventDefault();
-            const touch = e.changedTouches[0]
-            mouse.x = touch.pageX;
-            mouse.y = touch.pageY;
-        } else {
-            mouse.x = e.pageX;
-            mouse.y = e.pageY;
-        }
-    }
-
-    setInterval(followMouse, 20);
-
     changeColor();
     
-    document.addEventListener('touchmove', getMouse);
-    document.addEventListener('touchend', handleClickUp);
-    document.addEventListener('mousemove', getMouse);
-
-    // document.addEventListener('pointermove', getMouse, true);
-
-    document.addEventListener('pointerdown', handleClickDown);
-    document.addEventListener('pointerup', handleClickUp);
     changeColorButton.addEventListener('click', changeColor);
     hexContainer.addEventListener('click', handleCopyClick);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const createMouse = () => {
-        const section = document.querySelector('.c-main');
-        const innerCircle = document.createElement('span');
-        const outerCircle = document.createElement('span');
-
-        innerCircle.setAttribute('class', 'innerCircle')
-        outerCircle.setAttribute('class', 'outerCircle')
-
-        section.appendChild(innerCircle);
-        section.appendChild(outerCircle);
-    }
-    
-    createMouse();
+    const mouse = new CustomCursor({parent: '.c-main', speed: 10});
 
     init();
 });
