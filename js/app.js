@@ -8,14 +8,20 @@ const init = () => {
         'Maximum Blue Purple': '#B7ADED',
     }
 
+    const mouse = new CustomCursor('body', {
+        speed: 10,
+        fade: true,
+    });
+    const parrallax1 = new Parrallax('.c-parrallax', {
+        speed: 0.012,
+        direction: 'invert',
+    })
+
     const changeColorButton = document.querySelector('.c-button');
-    const mainSection = document.querySelector('.c-main');
     const title = document.querySelector('.c-title');
     const hex = document.querySelector('.c-hex--text');
     const hexContainer = document.querySelector('.c-hex');
-    const hexIcon = document.querySelector('.c-hex--icon');
     const hexCopied = document.querySelector('.c-hex--copied');
-    const hexCopiedIcon = document.querySelector('.c-hex--copied__icon');
 
     let previousColor = '';
 
@@ -42,47 +48,45 @@ const init = () => {
     const handleCopyClick = () => {
         navigator.clipboard.writeText(hex.textContent);
         
-        hexCopied.style.opacity = '1'
+        hexCopied.style.opacity = '1';
         setTimeout(() => {
-            hexCopied.style.opacity = '0'
-        }, 2000)
+            hexCopied.style.opacity = '0';
+        }, 2000);
     }
 
     const changeColor = () => {
         let randomColor = getRandomColor(colors);
-        let count = 0
+        let count = 0;
         while(randomColor.color == previousColor && count <= 5) {
             randomColor = getRandomColor(colors);
             count += 1;
         }
-        previousColor = randomColor.color
+        previousColor = randomColor.color;
 
-        mainSection.style.backgroundColor = randomColor.color;
-        changeColorButton.style.backgroundColor = randomColor.color
-        changeColorButton.style.color = randomColor.color
+        let root = document.documentElement;
+        root.style.setProperty('--main-color', randomColor.color);
 
-        title.style.color = randomColor.color
         title.textContent = randomColor.name;
-
-        hexContainer.style.backgroundColor = randomColor.color
-        hexIcon.style.fill = randomColor.color
-        
-        hexCopied.style.backgroundColor = randomColor.color
-        hexCopied.style.color = randomColor.color
-        hexCopiedIcon.style.stroke = randomColor.color
-
-        hex.style.color = randomColor.color
-        hex.textContent = `${randomColor.color}`
+        hex.textContent = `${randomColor.color}`;
     }
 
     changeColor();
     
     changeColorButton.addEventListener('click', changeColor);
     hexContainer.addEventListener('click', handleCopyClick);
+
+    let parrallaxActive = true;
+    document.querySelector('.c-parrallax-button').addEventListener('click', () => {
+        if (parrallaxActive) {
+            parrallax1.removeParrallax();
+            parrallaxActive = false;
+        } else {
+            parrallax1.setupParrallax();
+            parrallaxActive = true;
+        }
+    })
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    const mouse = new CustomCursor({parent: '.c-main', speed: 10});
-
     init();
 });
