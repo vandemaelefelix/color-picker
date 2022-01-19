@@ -1,17 +1,20 @@
 const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
 class CustomCursor {
-    constructor ({ parent, speed = 10 }) {
-        this.parentElement = document.querySelector(parent);
-        this.speed = speed;
-
+    constructor (parent, options = {speed, fade}) {
+        if (parent === 'body') {
+            this.parentElement = document.body;
+        } else {
+            this.parentElement = document.querySelector(parent);
+        }
+        this.speed = options.speed;
         this.circlePos = { x: 0, y: 0};
         this.dotPos = { x: 0, y: 0 };
         this.mousePos = { x: 0, y: 0 };
-
         this.dot;
         this.circle;
-
+        this.isMoving = false;
+        this.fade = options.fade;
         this.createMouse();
     }
 
@@ -48,9 +51,34 @@ class CustomCursor {
         requestAnimationFrame(() => this.followMouse())
     }
 
+    fadeOutMouse () {
+        this.dot.style.opacity = '0';
+        this.dot.style.transform = 'scale(0) translate(-50%, -50%)';
+        this.circle.style.opacity = '0';
+        this.circle.style.transform = 'scale(0) translate(-50%, -50%)';
+    }
+    fadeInMouse () {
+        this.dot.style.opacity = '1';
+        this.dot.style.transform = 'scale(1) translate(-50%, -50%)';
+        this.circle.style.opacity = '1';
+        this.circle.style.transform = 'scale(1) translate(-50%, -50%)';
+    }
+
     getMouse (e) {
+        if (this.fade) {
+            if (!this.isMoving) {
+                this.isMoving = true;
+                this.fadeInMouse();
+            }
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(() => {
+                this.fadeOutMouse();
+                this.isMoving = false;
+            }, 2000);
+        }
+
         if (e.type == 'touchmove' || e.type == 'touchdown') {
-            handleClickUp();
+            this.handleClickUp();
             e.preventDefault();
             const touch = e.changedTouches[0]
             this.mousePos.x = touch.pageX;
@@ -82,5 +110,4 @@ class CustomCursor {
         this.parentElement.addEventListener('pointerdown', (e) => this.handleClickDown(e));
         this.parentElement.addEventListener('pointerup', (e) => this.handleClickUp(e));
     }
-
 }
